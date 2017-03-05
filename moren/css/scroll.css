@@ -1,0 +1,36 @@
+.scroll {}
+
+.scroll::-webkit-scrollbar-button {
+  display: block;
+  width: 17px;
+  height: 17px;
+}
+.scroll::-webkit-scrollbar-button:decrement:start {
+  background-color:lightblue;
+  border:2px solid black;
+}
+.scroll::-webkit-scrollbar-button:increment:start {
+  background-color:lightgreen;
+  border:2px solid black;
+}
+.scroll::-webkit-scrollbar-button:decrement:end {
+  background-color:orange;
+  border:2px solid black;
+}
+.scroll::-webkit-scrollbar-button:increment:end {
+  background-color:brown;
+  border:2px solid black;
+}
+
+.scroll::-webkit-scrollbar-thumb {
+  min-width:20px;
+  min-height:20px;
+  background-color: navy;
+  border:2px solid #cccccc;
+}
+.scroll::-webkit-scrollbar-track-piece:decrement {
+  background-color: olive;
+}
+.scroll::-webkit-scrollbar-track-piece:increment {
+  background-color: pink;
+}

@@ -1,0 +1,11 @@
+man - like unix command "man"\
+ \
+use:  (man "topic-name)\
+      where "topic-name" is the name of one of the sections of the manual\
+ \
+Available topics\
+dom      - DOM package toc\
+resman   - Resource manager package toc\
+viewport - Viewport primitive toc\
+jso      - javascript object toc\
+ws       - sockets toc\

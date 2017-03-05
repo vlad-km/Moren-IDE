@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cropper.js</title>
+
+  <link rel="stylesheet" href="../lib/codemirror.css">
+  <link rel="stylesheet" href="../theme/elegant.css">
+  <link rel="stylesheet" href="../theme/the-matrix.css">
+  <link rel="stylesheet" href="../theme/blackboard.css">
+
+  <link rel="stylesheet" href="../addon/scroll/simplescrollbars.css">
+  <link rel="stylesheet" href="../addon/dialog/dialog.css">
+
+  <script src="../lib/codemirror.js"></script>
+  <script src="../addon/scroll/simplescrollbars.js"></script>
+  //<script src="../mode/commonlisp/commonlisp.js"></script>
+  <script src="../addon/selection/active-line.js"></script>
+
+  <script src="../mode/clike/clike.js"></script>
+  <script src="../keymap/emacs.js"></script>
+  <script src="../mode/commonlisp/commonlisp.js"></script>
+
+  <script src="../addon/edit/matchbrackets.js"></script>
+  <script src="../addon/comment/comment.js"></script>
+  <script src="../addon/dialog/dialog.js"></script>
+  <script src="../addon/search/searchcursor.js"></script>
+  <script src="../addon/search/search.js"></script>
+
+
+  <style type="text/css">
+    .CodeMirror {border: 1px solid black; font-size:13px}
+    .e-container {
+      max-width: 300px;
+      margin: 1px 1px 1px 1px;
+      left: 300px;
+      top: 100px;
+      position: absolute;
+      background-color: rgba(0, 0, 0, 0.0);
+      z-index: 100;
+    }
+
+    .bp {
+     position: relative;
+    }
+
+    .file-container {
+      width: 400px;
+    }
+
+    .file-container-box {
+      margin: 1px 1px 1px 1px;
+      top: 1px;
+      left: 1px;
+      position: relative;
+      //opacity: 1.0;
+      //background-color: rgba(255, 0, 0, 0.1);
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="bp"> 
+        <input type="button" onclick="hid()" value="hidden"/>
+        <input type="button" onclick="unhid()" value="show"/>
+  </div>
+
+  <div class="e-container" id="edik">
+    <div id="edit" class="file-container file-container-box">
+          <form><textarea id="code" name="code">
+            (defun a (b) (let ((c b))))
+         </textarea></form>
+    </div>
+  </div>
+
+  <div>
+<p>Это</p>
+<article>длинный
+текст
+ssssssss    sssssssss                       sssssss
+или</article>
+другие  wwwwwwwwwwwwwwwwwwwwwwwwww  wwwwwwwwwwwwww cccccccccccccccccccccccccc
+элементы                                                    ccccccccccccccccccccccccc
+</div>
+
+
+  <script>
+    var edik = document.getElementById('edik');
+
+    var hid = function (ev) {
+        edik.hidden = true;
+    };
+
+    var unhid = function (ev) {
+        edik.hidden = false;
+        editor.focus();
+    };
+
+
+
+    var top1 = function (ev) {
+    var id1 = document.getElementById('img1');
+        id1.style.zIndex = 10;
+    var id2 = document.getElementById('img2');
+        id2.style.zIndex = 1;
+    };
+
+    var top2 = function (ev) {
+    var id1 = document.getElementById('img1');
+        id1.style.zIndex = 1;
+    var id2 = document.getElementById('img2');
+        id2.style.zIndex = 10;
+    };
+
+      //CodeMirror.commands.save = function() {
+      //  var elt = editor.getWrapperElement();
+      //  elt.style.background = "#def";
+      //  setTimeout(function() { elt.style.background = ""; }, 300);
+      //};
+
+      CodeMirror.commands.save = function() {
+        editor.openDialog("What save?"+ ": <input type=\"text\" style=\"width: 10em\"/>", function (s) { console.log(s);}, {bottom: true});
+        var elt = editor.getValue();
+        console.log("Wrapper", elt);
+      };
+
+    var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+      lineNumbers: true,
+      scrollbarStyle: "simple",
+      autofocus: true,
+      styleActiveLine: true,
+      matchBrackets: true,
+      theme: "blackboard",
+      mode: "text/x-common-lisp",
+      keyMap: "emacs"
+    });
+
+     editor.setOption("extraKeys", {
+       "Ctrl-X B": function(cm) {
+                   editor.openDialog("Select buffer name"+ ": <input type=\"text\" style=\"width: 10em\"/>", 
+                               function (s) { 
+                                       console.log("Select buffer",s);
+                               }, {bottom: true});
+            },
+      "Ctrl-X F": function(cm) {
+                   editor.openDialog("Load buffer name"+ ": <input type=\"text\" style=\"width: 10em\"/>", 
+                               function (s) { 
+                                       console.log("Load buffer", s);
+                               }, {bottom: true});
+            },
+      "Ctrl-X C": function(cm) {
+                   editor.openDialog("Compile function"+ ": <input type=\"text\" style=\"width: 10em\"/>", 
+                               function (s) { 
+                                       var elt = editor.getSelection();
+                                       console.log("Compile selected function", s, elt);
+                               }, {bottom: true});
+            },
+      "Ctrl-X K": function(cm) {
+                   editor.openDialog("Compile buffer"+ ": <input type=\"text\" style=\"width: 10em\"/>", 
+                               function (s) { 
+                                       console.log("Compile buffer", s);
+                               }, {bottom: true});
+           },
+
+      "Ctrl-X X": function(cm) {
+                   hid();
+           }
+
+
+     });
+
+
+    
+  </script>
+</body>
+</html>

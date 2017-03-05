@@ -1,0 +1,20 @@
+DOM  - manipulation functions\
+ \
+ \
+Release: Pre-0.1 \
+Version: Alpha-1.0\
+ \
+Tested: Chrome/ Win 7/ ccl v1.11-64 \
+ \Note:\
+ \  1) Some functions raise error condition because current JSCL
+ \  was not correct processing null from JS
+ \  2) Some functions may raised error condition by cause
+ \     returned dynamical array data type from JS.
+ \  3) The above two points are valid for (Nodes:
+ \     childs,parent,sibling node and nodes collections).
+ \     It requires additional testing
+ \
+(dom-get-body) => window.document.body  \
+(dom-get-head) => window.document.head \
+(dom-get-title) => window.document.title\
+(dom-set-title "title") => new window.document.title\

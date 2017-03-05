@@ -1,0 +1,40 @@
+{
+  "name": "Moren",
+  "version": "1.0",
+  "description": "JSCL",
+  "offline_enabled": true,
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+  "background": {
+      "scripts": ["backtab.js"]
+    },
+
+  "browser_action": {
+    "default_icon": "lizard.png",
+    "default_title": "Take a fun!"
+  },
+
+  "permissions": [
+    "http://127.0.0.1/",
+    "http://localhost/",
+    "tabs",
+    "history",
+    "cookies",
+    "clipboardRead",
+    "clipboardWrite",
+    "activeTab",
+    "contextMenus",
+    "privacy",
+    "storage",
+    "tabs",
+    "unlimitedStorage",
+    "webNavigation",
+    "webRequest",
+    "webRequestBlocking",
+    "management",
+    "http://*/*",
+    "https://*/*",
+    "downloads"
+  ],
+
+   "manifest_version": 2
+}
