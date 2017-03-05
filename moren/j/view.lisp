@@ -13,7 +13,7 @@ HOW USE
 (setf *out (make-dom-output-stream :exists (viewport-div *vp)))
 
 (dotimes (i 20)
-    (format *out "Hello! <br> <font color='orange'>How are you?</font><p>~d</p><br>"))
+    (format *out "Hello! <br> <font color='orange'>How are you?</font><p>~d</p><br>" i))
 
 
 |#
