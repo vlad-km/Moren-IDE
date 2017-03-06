@@ -7,6 +7,8 @@
 
 HOW USE
 
+(load "j/view.lisp")
+
 (setf *bord (make-wpborder :radius "5px" :color "white"))
 (setf *back (make-wpbackground :color "blue"))
 (setf *vp (viewport-create :left 500 :border *bord :background *back :color "white" :parent (dom-get-body) :drag t))
@@ -15,12 +17,16 @@ HOW USE
 (dotimes (i 20)
     (format *out "Hello! <br> <font color='orange'>How are you?</font><p>~d</p><br>" i))
 
+(dotimes (i 40)
+    (write-char "s" *out))
 
 |#
 
 
-
+;;;
 ;;; MAKE-OUTPUT-STREAM
+;;;
+;;;
 (export '(make-dom-output-stream))
 (defun make-dom-output-stream (&key name exists)
     (let ((buffer (dom-create "div")))
@@ -30,8 +36,9 @@ HOW USE
                 ;; write-char
                 (lambda (ch)
                     (let* ((span (dom-create "span")))
-                        (setf (oget span "innerHTML") ch)
-                        (funcall ((oget buffer "appendChild" "bind" ) bufer span))))
+                        (setf (oget span "innerHTML") (string ch))
+                        (funcall ((oget buffer "appendChild" "bind" ) buffer span))))
+                ;; write-string
                 (lambda (string)
                     (let* ((span (dom-create "span")))
                         (setf (oget span "innerHTML") string)

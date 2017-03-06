@@ -99,97 +99,6 @@
 ;;;
 
 
-;;;
-;;; (test (eql t nil))
-;;; =>
-;;;    Test [22] (EQL T NIL)
-;;;         Warning: ("Failed").
-;;;         Elapsed 0 sec
-;;;
-;;;
-;;; (test (if (true) (true) (fail)))
-;;; =>
-;;;    Test [26] (IF (TRUE) (TRUE) (FAIL))
-;;;          Passed
-;;;          Elapsed 0.105 sec
-;;;
-;;; (test (fail))
-;;; =>
-;;;    Test [25] (FAIL)
-;;;         Warning: ("Failed").
-;;;         Elapsed 0 sec
-;;;
-;;;
-;;; (test (error "Its error"))
-;;; =>
-;;;    Test [27] (ERROR "Its error")
-;;;          Error: ("Its error").
-;;;          Elapsed 0.07 sec
-;;;
-;;; (test (warn "its warn message"))
-;;; =>
-;;;     Test [28] (WARN "its warn message")
-;;;          Warning: ("its warn message").
-;;;          Elapsed 0 sec
-;;;
-;;; (test (catch 'result
-;;;    (setq i 0 j 0)
-;;;    (loop (incf j 3) (incf i)
-;;;          (if (= i 3) (throw 'result (values i j)))))
-;;;
-;;; =>
-;;;    Test [29] (CATCH (QUOTE RESULT) (SETQ I 0 J 0) (LOOP (INCF J 3) (INCF I) (IF (= I 3) (THROW (QUOTE RESULT) (VALUES I J)))))
-;;;         Passed
-;;;         Elapsed 0.26 sec
-
-;;;   Know problems
-;;;
-;;;   (test (warn "Val ~d" 1))
-;;;    =>
-;;;         Test [36] (WARN "Val ~d" 1)
-;;;         Warning: ("Val ~d" 1).
-;;;         Elapsed 0 sec
-;;;
-;;;  Solved as:
-;;;
-;;;   (test (warn (concat "Val " 1)))
-;;;   (test (warn (format nil "Val ~d" 1)))
-;;;
-;;;  Below 4 tests
-;;;
-;;;    (let* ((a '(1 2)) (b a) (c a))
-;;;         (test (equal (mapcar #'+ a b c) '( 3  6)))
-;;;         (test (equal (mapcar #'- a b c) '(-1 -2)))
-;;;         (test (equal (mapcar #'* a b c) '( 1  8)))
-;;;         (test (equal (mapcar #'/ a b c) '( 1  0.5))))
-;;;
-;;;  will be failed. There is a problem with the binding local variables inside the closure and their visibility
-;;;  in the new eval context.
-;;;
-;;;  The problem is solved as:
-;;;
-;;;  (test
-;;;     (let* ((a '(1 2)) (b a) (c a))
-;;;        (and
-;;;          (equal (mapcar #'+ a b c) '( 3  6))
-;;;          (equal (mapcar #'- a b c) '(-1 -2))
-;;;          (equal (mapcar #'* a b c) '( 1  8))
-;;;          (equal (mapcar #'/ a b c) '( 1  0.5)))))
-;;;
-;;;  or 1) using global variables
-;;;
-;;;      (defparameter var-1 0)
-;;;      (defparameter var-2 1)
-;;;
-;;;      (test (= var-1 var-2))
-;;;      (test (> var-1 var-2))
-;;;
-;;; or  2) using binding variables from other package
-;;;
-;;;      (test (equal (mapcar #'+ frob::a frob::b frob::c) '( 3  6)))
-;;;
-;;; Goddamn knows it is a bug or a feature
-;;;
 
 (defmacro test (condition)
     `(test-fn ',condition ',condition 0))
@@ -229,8 +138,7 @@
 ;;;
 ;;; Load-tb
 ;;;
-;;; Load test batch (source lisp file with test forms) from http-server
-;;; work only on http protocol
+;;; Load test batch (source lisp file with test forms)
 ;;;
 ;;; (load-tb "static/js/integers.lisp")
 ;;;
