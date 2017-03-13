@@ -9,7 +9,7 @@
     },
 
   "browser_action": {
-    "default_icon": "lizard.png",
+    "default_icon": "Lizard.png",
     "default_title": "Take a fun!"
   },
 
