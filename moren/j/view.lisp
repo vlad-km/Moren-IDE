@@ -1,53 +1,8 @@
 ;;;
 ;;; viewport sketch
 ;;;
-
-
-#|
-
-HOW USE
-
-(load "j/view.lisp")
-
-(setf *bord (make-wpborder :radius "5px" :color "white"))
-(setf *back (make-wpbackground :color "blue"))
-(setf *vp (viewport-create :left 500 :border *bord :background *back :color "white" :parent (dom-get-body) :drag t))
-(setf *out (make-dom-output-stream :exists (viewport-div *vp)))
-
-(dotimes (i 20)
-    (format *out "Hello! <br> <font color='orange'>How are you?</font><p>~d</p><br>" i))
-
-(dotimes (i 40)
-    (write-char "s" *out))
-
-|#
-
-
+;;; Copyright, 2017, mvk
 ;;;
-;;; MAKE-OUTPUT-STREAM
-;;;
-;;;
-(export '(make-dom-output-stream))
-(defun make-dom-output-stream (&key name exists)
-    (let ((buffer (dom-create "div")))
-        (when exists
-            (setf buffer nil buffer exists))
-        (vector 'stream
-                ;; write-char
-                (lambda (ch)
-                    (let* ((span (dom-create "span")))
-                        (setf (oget span "innerHTML") (string ch))
-                        (funcall ((oget buffer "appendChild" "bind" ) buffer span))))
-                ;; write-string
-                (lambda (string)
-                    (let* ((span (dom-create "span")))
-                        (setf (oget span "innerHTML") string)
-                        (funcall ((oget buffer "appendChild" "bind" ) buffer span))
-                        (setf (oget buffer "scrollTop") (oget buffer "scrollHeight")) ) )
-                'dom-stream
-                buffer)))
-
-
 
 
 (export '(viewport))
@@ -58,7 +13,8 @@ HOW USE
     border
     div)
 
-
+;;; viewport background template
+;;;
 (export '(wpbackground))
 (def!struct wpbackground color image repeat attachment position)
 
@@ -76,13 +32,66 @@ HOW USE
             (print (list 'back (apply #'concat (reverse rs)) ))
             (apply #'concat (reverse rs)))))
 
-
+;;; set background css
+;;; any div any style attributes
 ;;;
+(export '(wp-background-css))
+(defun wp-background-css (back-owner &rest conses)
+    (map nil (lambda (x)
+                 (setf (oget back-owner "style" (concat "background-" (car x))) (cdr x))) conses)
+    back-owner)
+
+
+;;; set viewport css
+;;;
+(export '(viewport-background-css))
+(defun viewport-background-css (vp &rest conses)
+    (let ((back-owner (viewport-div vp)))
+        (map nil (lambda (x)
+                     (setf (oget back-owner "style" (concat "background-" (car x))) (cdr x))) conses)
+        (values-list nil)))
+
+
+
+
+
+;;; viewport border template
 ;;; :radius "5px" :style "groove" etc. etc. from atribute border spec
 ;;;
 (export '(wpborder))
+
 (def!struct wpborder style width color padding radius padding margin background )
 
+
+;;;
+;;; set border css style
+;;;
+;;; border's style for any div
+;;;
+;;; (wp-border-css (dom-create "div")
+;;;      (cons "width" "3px") (cons "color" "white") (cons "style" "groove"))
+;;; =>
+;;;     #<JS-OBJECT [object HTMLDivElement]>
+;;;
+;;; border style for viewport unit
+;;;
+;;; (viewport-border-css (*vp)
+;;;      (cons "width" "3px") (cons "color" "white") (cons "style" "groove"))
+;;;
+;;; => none
+;;;
+(export '(wp-border-css))
+(defun wp-border-css (border-owner &rest conses)
+    (map nil (lambda (x)
+                 (setf (oget border-owner "style" (concat "border-" (car x))) (cdr x))) conses)
+    border-owner)
+
+(export '(viewport-border-css))
+(defun viewport-border-css (vp &rest conses)
+    (let ((border-owner (viewport-div vp)))
+        (map nil (lambda (x)
+                     (setf (oget border-owner "style" (concat "border-" (car x))) (cdr x))) conses)
+        (values-list nil)))
 
 
 (defun wpborder-expand (bp)
@@ -342,11 +351,11 @@ HOW USE
         (funcall ((oget pvp "draggable" "bind") pvp))))
 
 
-
+#|
 (defun viewport-tabs (vp)
     (let* ((pvp (#j:$ vp)))
         (funcall ((oget pvp "tabs" "bind") pvp))))
-
+|#
 
 
 ;;;
@@ -354,17 +363,26 @@ HOW USE
 ;;;
 ;;; (viewport-background dom-elt "images/way.jpg")
 
-(export '(replace-background-image))
-(defun replace-background-image (ref &optional style)
+(export '(replace-body-background-image))
+(defun replace-body-background-image (ref &optional style)
     (let* ((url (concat "url(" ref ")"))
            (dom (dom-get-body)))
         (setf (oget dom "style" "backgroundImage") url)
         (when style
             (setf (oget dom "style" "backgroundSize") style))))
 
-(export '(viewport-baclground))
-(defun viewport-background (dom ref &optional style)
+
+(export '(wp-background-image))
+(defun wp-background-image (dom ref &optional style)
     (let* ((url (concat "url(" ref ")")))
+        (setf (oget dom "style" "backgroundImage") url)
+        (when style
+            (setf (oget dom "style" "backgroundSize") style))))
+
+
+(defun viewport-background-image (vp ref &optional style)
+    (let* ((url (concat "url(" ref ")"))
+           (dom (viewport-div vp)))
         (setf (oget dom "style" "backgroundImage") url)
         (when style
             (setf (oget dom "style" "backgroundSize") style))))
