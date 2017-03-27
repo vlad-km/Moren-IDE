@@ -93,8 +93,9 @@ The available area of the screen is divided into panels:
 
 Positioning of the panels in the browser screen coordinates absolute. 
 Panel position, dimensions and colors CSS defined.
-See details in [./moren/css/moren.css]
-For general view of, please see [./moren/moren-ide.png]
+
+- See details [![in](./moren/css/moren.css)]
+- For general view of, please [![see](./moren/moren-ide.png)]
 
 
 
