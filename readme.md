@@ -94,8 +94,7 @@ The available area of the screen is divided into panels:
 Positioning of the panels in the browser screen coordinates absolute. 
 Panel position, dimensions and colors CSS defined.
 
-- General view [!(https://github.com/vlad-km/jscl-chrome-extension/blob/master/moren-ide.png)]
-
+- General view [![general view](https://github.com/vlad-km/jscl-chrome-extension/blob/master/moren-ide.png)]
 
 # Development status
 
