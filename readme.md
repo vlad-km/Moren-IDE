@@ -67,32 +67,9 @@ Download text files for compilation in an environment:
 
 - Implementation of the load function
 
-Connection compiled in JSCL additions, and other JS libraries, images and css resources is performed on the fly.
+Add  JSCL additions, and other JS libraries, images and css resources is performed on the fly.
 Just call lisp functions from console.
 
-
-The available area of the screen is divided into panels:
-
-- `Banner` for output service IDE messages
-- `Control` for the location of controls (buttons, menus)
-- `Console` for interactive interaction with the environment 
-
-*see bellow*
-
-```
-+-----------------------------------------------+
-|               banner                          |
-+-----------------------------------------------+
-|               control                         |
-+-----------------------------------------------+
-|                                               |
-|               console                         |
-|                                               |
-+-----------------------------------------------+
-```
-
-Positioning of the panels in the browser screen coordinates absolute. 
-Panel position, dimensions and colors CSS defined.
 
 - General view [![general view](https://github.com/vlad-km/jscl-chrome-extension/blob/master/moren-ide.png)]
 
@@ -102,12 +79,13 @@ Alpha stage
 
 # Realisation
 
-Chrome extension
-Tested on Chrome/55.0.2883.87
+Chrome extension /55.0.2883.87
 
 # Distribution kit
 
-Distributed as completely ready-to-install Chrome extension. Including the compiled programs from Lisp (JSCL) to JS.
+Distributed as completely ready-to-install Chrome extension. 
+Including the compiled programs from Lisp (JSCL) to JS.
+
 
 Source lisp code for recompilation may take from:
 
