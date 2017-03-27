@@ -94,9 +94,7 @@ The available area of the screen is divided into panels:
 Positioning of the panels in the browser screen coordinates absolute. 
 Panel position, dimensions and colors CSS defined.
 
-- See details [![in](./moren/css/moren.css)]
-- For general view of, please [![see](./moren/moren-ide.png)]
-
+- General view [!(https://github.com/vlad-km/jscl-chrome-extension/blob/master/moren-ide.png)]
 
 
 # Development status
@@ -114,18 +112,18 @@ Distributed as completely ready-to-install Chrome extension. Including the compi
 
 Source lisp code for recompilation may take from:
 
-JSCL   [https://github.com/jscl-project/jscl.git]
-Klib   [https://github.com/vlad-km/klib.git]
-Moren  [https://github.com/vlad-km/moren.git]
+- JSCL   (https://github.com/jscl-project/jscl.git)
+- Klib   (https://github.com/vlad-km/klib.git)
+- Moren  (https://github.com/vlad-km/moren.git)
 
 
 # Installation
 
-For more information, see [https://developer.chrome.com/extensions/getstarted].
+For more information, see (https://developer.chrome.com/extensions/getstarted).
 
 **Before beginning the installation, make sure that the permissions specified in the supplied distribution kit, acceptable to you.
 See file moren/manifest.json for details about used permissions. If necessary, please to the get the necessary information 
-about the security policies at performance the extension from [https://developer.chrome.com/extensions/manifest] **
+about the security policies at performance the extension from (https://developer.chrome.com/extensions/manifest) **
 
 - Visit chrome://extensions in your browser (or select extensions under the Tools menu open up the Chrome menu)
 
